@@ -56,6 +56,13 @@ function App() {
   function updateScore(agentName) {
     const agentIsPicked = isPicked(agentName);
     if (!agentIsPicked) setScore(score + 1);
+    else resetAllState();
+  }
+
+  function resetAllState() {
+    setPickHistory([]);
+    setScore(0);
+    shuffleAgents();
   }
 
   return (
