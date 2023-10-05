@@ -5,6 +5,7 @@ import uniqid from "uniqid";
 
 function App() {
   const [agents, setAgents] = useState([]);
+  const [pickHistory, setPickHistory] = useState([]);
   const [score, setScore] = useState(0);
 
   useEffect(() => {
@@ -25,16 +26,21 @@ function App() {
         data.fullPortrait !== null,
     );
     const reducedData = filteredData.slice(0, 10);
-    const shuffleData = shuffleAgents(reducedData);
+    const shuffleData = shuffle(reducedData);
     return shuffleData;
   }
 
-  const shuffleAgents = (array) => {
+  function shuffleAgents() {
+    const shuffleAgents = agents;
+    return setAgents([...shuffle(shuffleAgents)]);
+  }
+
+  function shuffle(array) {
     return array
       .map((a) => ({ sort: Math.random(), value: a }))
       .sort((a, b) => a.sort - b.sort)
       .map((a) => a.value);
-  };
+  }
 
   return (
     <>
@@ -44,7 +50,13 @@ function App() {
             <p>Loading ... </p>
           ) : (
             agents.map((agent) => {
-              return <Card agent={agent} key={uniqid()}></Card>;
+              return (
+                <Card
+                  agent={agent}
+                  shuffleAgents={shuffleAgents}
+                  key={uniqid()}
+                ></Card>
+              );
             })
           )}
         </div>

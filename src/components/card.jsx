@@ -14,9 +14,9 @@ function FaceCard({ agent }) {
   );
 }
 
-export function Card({ agent }) {
+export function Card({ agent, shuffleAgents }) {
   return (
-    <div className="card-container">
+    <div className="card-container" onClick={shuffleAgents}>
       <FaceCard agent={agent}></FaceCard>
     </div>
   );
