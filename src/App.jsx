@@ -47,15 +47,15 @@ function App() {
     if (pickHistory.includes(agentName)) {
       return true;
     } else {
-      const newPickHistory = pickHistory;
-      setPickHistory([...newPickHistory, agentName]);
+      setPickHistory([...pickHistory, agentName]);
       shuffleAgents();
       return false;
     }
   }
 
   function updateScore(agentName) {
-    const pickHistory = isPicked(agentName);
+    const agentIsPicked = isPicked(agentName);
+    if (!agentIsPicked) setScore(score + 1);
   }
 
   return (
