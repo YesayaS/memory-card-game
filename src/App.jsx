@@ -42,8 +42,25 @@ function App() {
       .map((a) => a.value);
   }
 
+  function isPicked(e) {
+    const agentName = e.target.closest(".card-container").dataset.key;
+    if (pickHistory.includes(agentName)) {
+      return true;
+    } else {
+      const newPickHistory = pickHistory;
+      setPickHistory([...newPickHistory, agentName]);
+      shuffleAgents();
+      return false;
+    }
+  }
+
+  function updateScore(agentName) {
+    const pickHistory = isPicked(agentName);
+  }
+
   return (
     <>
+      <div>Score: {score}/10</div>
       <div className="card-list-container">
         <div className="card-list">
           {!agents.length ? (
@@ -53,7 +70,7 @@ function App() {
               return (
                 <Card
                   agent={agent}
-                  shuffleAgents={shuffleAgents}
+                  updateScore={updateScore}
                   key={uniqid()}
                 ></Card>
               );
