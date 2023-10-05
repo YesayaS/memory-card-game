@@ -1,0 +1,50 @@
+.cardContainer{
+    border: 10px #FD4556 solid;
+    width: 200px;
+    aspect-ratio: 2/3;   
+}
+
+.faceCard{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
+
+.agentBg{
+    position: absolute;
+    z-index: -1;
+    top: 0px;
+    background-color: rgba(0, 0, 0, 0.8);
+    scale: 1.2;
+}
+
+.agentImg{
+    position: absolute;
+    z-index: -1;
+    top: 0px;
+    object-position: 50% 40px;
+    scale: 2.3;
+}
+
+.gradientFilter{
+    z-index: 1;
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.3));
+}
+
+.agentName{
+    position: absolute;
+    z-index: 2;
+    bottom: 0px;
+    text-align: center;
+    padding: 5px;
+    color: #000000;
+    background-color: #FFFBF5;
+    width: 100%;
+}
