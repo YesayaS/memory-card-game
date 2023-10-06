@@ -9,6 +9,18 @@ function App() {
   const [score, setScore] = useState(0);
 
   useEffect(() => {
+    const handleResponseJson = (obj) => {
+      const filteredData = obj.filter(
+        (data) =>
+          data.displayName !== null &&
+          data.background !== null &&
+          data.fullPortrait !== null,
+      );
+      const reducedData = filteredData.slice(0, 10);
+      const shuffleData = shuffle(reducedData);
+      return shuffleData;
+    };
+
     fetch("https://valorant-api.com/v1/agents")
       .then((r) => r.json())
       .then((json) => {
@@ -17,18 +29,6 @@ function App() {
       })
       .catch((e) => console.error(e));
   }, []);
-
-  function handleResponseJson(obj) {
-    const filteredData = obj.filter(
-      (data) =>
-        data.displayName !== null &&
-        data.background !== null &&
-        data.fullPortrait !== null,
-    );
-    const reducedData = filteredData.slice(0, 10);
-    const shuffleData = shuffle(reducedData);
-    return shuffleData;
-  }
 
   function shuffleAgents() {
     const shuffleAgents = agents;
