@@ -4,17 +4,17 @@
   perspective: 800px;
 }
 
-.card-container.flipped > .card {
-  transform: rotateY(-180deg);
-}
-
 .card {
   height: 100%;
   width: 100%;
   position: relative;
   transform-style: preserve-3d;
-  transition: transform 0.3s ease-in;
+  transition: all 1s ease-in;
   outline: 10px #fd4556 solid;
+}
+
+.card-container.flipped .card {
+  transform: rotateY(-180deg);
 }
 
 .back-card,
@@ -24,6 +24,7 @@
   object-fit: cover;
   position: absolute;
   backface-visibility: hidden;
+  transition: all 1s ease-in;
 }
 
 .face-card {

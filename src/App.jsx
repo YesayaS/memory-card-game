@@ -23,9 +23,9 @@ function App() {
           data.background !== null &&
           data.fullPortrait !== null,
       );
-      const reducedData = filteredData.slice(0, 10);
-      const shuffleData = shuffle(reducedData);
-      return shuffleData;
+      const shuffleData = shuffle(filteredData);
+      const reducedData = shuffleData.slice(0, 10);
+      return reducedData;
     };
 
     fetch("https://valorant-api.com/v1/agents")
@@ -44,11 +44,11 @@ function App() {
     if (!agentIsPicked) {
       setIsClicked(true);
       if (isClicked) return;
-      // setScore(score + 1);
+      setScore(score + 1);
       setCardFlip(true);
       setTimeout(() => {
-        // shuffleAgents();
-        // setPickHistory([...pickHistory, agentName]);
+        shuffleAgents();
+        setPickHistory([...pickHistory, agentName]);
       }, 800);
       setTimeout(() => {
         setCardFlip(false);
