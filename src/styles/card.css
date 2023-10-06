@@ -66,8 +66,8 @@
   z-index: -1;
   top: 0px;
   object-fit: cover;
-  object-position: 50% 50px;
-  scale: 2;
+  object-position: 50% 35px;
+  scale: 2.2;
 }
 
 .gradient-filter {
