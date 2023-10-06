@@ -2,9 +2,9 @@ import { useEffect } from "react";
 import "../styles/card.css";
 
 const motionMatchMedia = window.matchMedia("(prefers-reduced-motion)");
-const THRESHOLD = 15;
 
 function handleHover(e) {
+  const THRESHOLD = 5;
   const { clientX, clientY, currentTarget } = e;
   const { clientWidth, clientHeight, offsetLeft, offsetTop } = currentTarget;
 
@@ -13,14 +13,14 @@ function handleHover(e) {
   const rotateX = -(THRESHOLD / 2 - horizontal * THRESHOLD).toFixed(2);
   const rotateY = -(vertical * THRESHOLD - THRESHOLD / 2).toFixed(2);
 
-  this.style.transform = `perspective(${clientWidth}px) rotateX(${rotateY}deg) rotateY(${rotateX}deg) scale3d(1, 1, 1)`;
+  this.style.transform = `perspective(${clientWidth}px) rotateX(${rotateY}deg) rotateY(${rotateX}deg) scale3d(1.1, 1.1, 1.1)`;
 }
 
 function resetStyles(e) {
   this.style.transform = `perspective(${e.currentTarget.clientWidth}px) rotateX(0deg) rotateY(0deg)`;
 }
 
-export function hoverEffect() {
+function hoverEffect() {
   document.querySelectorAll(".card-container").forEach((card) => {
     if (!motionMatchMedia.matches) {
       card.addEventListener("mousemove", handleHover);

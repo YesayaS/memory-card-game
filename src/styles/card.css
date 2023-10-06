@@ -3,13 +3,11 @@
   border: 10px #fd4556 solid;
   width: 150px;
   aspect-ratio: 2/3;
-  /* transition: all .2s; */
 }
 
 .card-container:hover {
   z-index: 2;
-  transform: scale(1.25);
-  box-shadow: 0px 0px 20px 1px;
+  box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, 0.5);
 }
 
 .face-card {
