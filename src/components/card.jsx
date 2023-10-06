@@ -1,6 +1,5 @@
 import "../styles/card.css";
 
-// const card = document.querySelector(".card-container");
 const motionMatchMedia = window.matchMedia("(prefers-reduced-motion)");
 const THRESHOLD = 15;
 
@@ -28,7 +27,6 @@ document.querySelectorAll(".card-container").forEach((card) => {
 });
 
 function FaceCard({ agent }) {
-  // console.log(agent);
   const agentBg = agent.background;
   const agentPortrait = agent.fullPortrait;
   const agentName = agent.displayName;

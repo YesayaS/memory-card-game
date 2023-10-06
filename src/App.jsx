@@ -15,7 +15,7 @@ function App() {
         const data = handleResponseJson(json.data);
         setAgents([...data]);
       })
-      .catch((e) => console.log(e));
+      .catch((e) => console.error(e));
   }, []);
 
   function handleResponseJson(obj) {
