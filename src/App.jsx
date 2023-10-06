@@ -7,6 +7,7 @@ import Tilt from "react-parallax-tilt";
 import { Loading } from "./components/loading";
 import { LoseScreen } from "./components/lose";
 import { Transition } from "react-transition-group";
+import { WinScreen } from "./components/win";
 
 function App() {
   const cardLength = 5;
@@ -14,6 +15,7 @@ function App() {
   const [pickHistory, setPickHistory] = useState([]);
   const [score, setScore] = useState(0);
   const [isLose, setIsLose] = useState(false);
+  const [isWin, setIsWin] = useState(false);
 
   const [clickable, setClickable] = useState(true);
   const [cardFlip, setCardFlip] = useState(false);
@@ -67,6 +69,7 @@ function App() {
     setScore(0);
     shuffleAgents();
     setIsLose(false);
+    setIsWin(false);
   }
 
   function handleClick(agentName) {
@@ -95,16 +98,18 @@ function App() {
     resetAllState();
   }
 
-  const nodeRef = useRef(null);
+  useEffect(() => {
+    score === 5 ? setIsWin(true) : null;
+  }, [score]);
 
   return (
     <>
       {!agents.length ? (
         <Loading></Loading>
       ) : isLose ? (
-        <Transition nodeRef={nodeRef} in={isLose} timeout={500}>
-          <LoseScreen handle={handlePlayAgain}></LoseScreen>
-        </Transition>
+        <LoseScreen handle={handlePlayAgain}></LoseScreen>
+      ) : isWin ? (
+        <WinScreen handle={handlePlayAgain}></WinScreen>
       ) : (
         <motion.div
           initial={{ scale: 0 }}
