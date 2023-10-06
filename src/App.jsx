@@ -83,37 +83,43 @@ function App() {
   }
 
   return (
-    <div className="gameBoard">
-      <div className="scoreBoard">Score: {score}/10</div>
-      <motion.div
-        className="card-list-container"
-        initial={{ scale: 0 }}
-        animate={{ scale: 1 }}
-        transition={{ duration: 0.5 }}
-      >
-        <div className="card-list">
-          {!agents.length ? (
-            <p>Loading ... </p>
-          ) : (
-            agents.map((agent) => {
-              return (
-                <Tilt
-                  key={uniqid()}
-                  tiltReverse={true}
-                  glareEnable={true}
-                  glareReverse={true}
-                >
-                  <Card
-                    agent={agent}
-                    handle={updateScore}
-                    cardFlip={cardFlip}
-                  ></Card>
-                </Tilt>
-              );
-            })
-          )}
-        </div>
-      </motion.div>
+    <div>
+      <div>
+        {!agents.length ? (
+          <p>Loading ... </p>
+        ) : (
+          <motion.div
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            transition={{ duration: 0.5 }}
+          >
+            <div className="gameBoard">
+              <div className="title">VALORANT Memory Card Game</div>
+              <div className="scoreBoard">Score: {score}/10</div>
+              <div className="card-list-container">
+                <div className="card-list">
+                  {agents.map((agent) => {
+                    return (
+                      <Tilt
+                        key={uniqid()}
+                        tiltReverse={true}
+                        glareEnable={true}
+                        glareReverse={true}
+                      >
+                        <Card
+                          agent={agent}
+                          handle={updateScore}
+                          cardFlip={cardFlip}
+                        ></Card>
+                      </Tilt>
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </div>
     </div>
   );
 }

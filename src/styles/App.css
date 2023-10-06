@@ -1,9 +1,17 @@
 .gameBoard{
+  padding: 20px;
   height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  gap: 10px;
+}
+
+.title{
+  text-align: center;
+  font-size: 3rem;
+  color: #fffbf5;
 }
 
 .scoreBoard{
@@ -13,6 +21,7 @@
 }
 
 .card-list-container {
+  margin-top: 20px;
   height: 100%;
   display: flex;
   justify-content: center;
