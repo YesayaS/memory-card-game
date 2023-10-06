@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import "../styles/card.css";
 
 const motionMatchMedia = window.matchMedia("(prefers-reduced-motion)");
@@ -19,12 +20,14 @@ function resetStyles(e) {
   this.style.transform = `perspective(${e.currentTarget.clientWidth}px) rotateX(0deg) rotateY(0deg)`;
 }
 
-document.querySelectorAll(".card-container").forEach((card) => {
-  if (!motionMatchMedia.matches) {
-    card.addEventListener("mousemove", handleHover);
-    card.addEventListener("mouseleave", resetStyles);
-  }
-});
+export function hoverEffect() {
+  document.querySelectorAll(".card-container").forEach((card) => {
+    if (!motionMatchMedia.matches) {
+      card.addEventListener("mousemove", handleHover);
+      card.addEventListener("mouseleave", resetStyles);
+    }
+  });
+}
 
 function FaceCard({ agent }) {
   const agentBg = agent.background;
@@ -41,6 +44,9 @@ function FaceCard({ agent }) {
 }
 
 export function Card({ agent, updateScore }) {
+  useEffect(() => {
+    hoverEffect();
+  }, [agent]);
   return (
     <div
       className="card-container"
