@@ -13,7 +13,7 @@ function App() {
   const [pickHistory, setPickHistory] = useState([]);
   const [score, setScore] = useState(0);
 
-  const [isClicked, setIsClicked] = useState(false);
+  const [clickable, setClickable] = useState(true);
   const [cardFlip, setCardFlip] = useState(false);
 
   useEffect(() => {
@@ -41,20 +41,20 @@ function App() {
   }, []);
 
   function updateScore(agentName) {
+    if (!clickable) return;
     const agentIsPicked = isPicked(agentName);
     if (!agentIsPicked) {
-      setIsClicked(true);
-      if (isClicked) return;
+      setClickable(false);
       setScore(score + 1);
       setCardFlip(true);
       setTimeout(() => {
         shuffleAgents();
         setPickHistory([...pickHistory, agentName]);
-      }, 800);
-      setTimeout(() => {
         setCardFlip(false);
-        setIsClicked(false);
-      }, 1300);
+      }, 400);
+      setTimeout(() => {
+        setClickable(true);
+      }, 1000);
     } else resetAllState();
   }
 
