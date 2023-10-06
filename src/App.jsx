@@ -8,6 +8,7 @@ import Tilt from "react-parallax-tilt";
 import { Loading } from "./components/loading";
 
 function App() {
+  const cardLength = 5;
   const [agents, setAgents] = useState([]);
   const [pickHistory, setPickHistory] = useState([]);
   const [score, setScore] = useState(0);
@@ -24,7 +25,7 @@ function App() {
           data.fullPortrait !== null,
       );
       const shuffleData = shuffle(filteredData);
-      const reducedData = shuffleData.slice(0, 10);
+      const reducedData = shuffleData.slice(0, cardLength);
       return reducedData;
     };
 
@@ -95,26 +96,26 @@ function App() {
         >
           <div className="gameBoard">
             <div className="title">VALORANT Memory Card Game</div>
-            <div className="scoreBoard">Score: {score}/10</div>
+            <div className="scoreBoard">
+              Score: {score}/{cardLength}
+            </div>
             <div className="card-list-container">
-              <div className="card-list">
-                {agents.map((agent, i) => {
-                  return (
-                    <Tilt
-                      key={i}
-                      tiltReverse={true}
-                      glareEnable={true}
-                      glareReverse={true}
-                    >
-                      <Card
-                        agent={agent}
-                        handle={updateScore}
-                        cardFlip={cardFlip}
-                      ></Card>
-                    </Tilt>
-                  );
-                })}
-              </div>
+              {agents.map((agent, i) => {
+                return (
+                  <Tilt
+                    key={i}
+                    tiltReverse={true}
+                    glareEnable={true}
+                    glareReverse={true}
+                  >
+                    <Card
+                      agent={agent}
+                      handle={updateScore}
+                      cardFlip={cardFlip}
+                    ></Card>
+                  </Tilt>
+                );
+              })}
             </div>
           </div>
         </motion.div>

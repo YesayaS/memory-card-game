@@ -26,14 +26,5 @@
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-.card-list {
-  display: grid;
-  justify-content: center;
-  align-items: center;
-  grid-template-columns: repeat(5, 1fr);
-  grid-template-areas: repeat(2, 1fr);
-  column-gap: 30px;
-  row-gap: 30px;
+  gap: 40px
 }
