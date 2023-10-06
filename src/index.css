@@ -1,9 +1,22 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap");
+
+:root{
+  --v-black: #0f1923;
+}
+
 * {
-  /* border: 1px solid red; */
   margin: 0;
+  font-family: "Montserrat", sans-serif;
 }
 
 #root {
   width: 100vw;
   height: 100vh;
+}
+
+body {
+  backdrop-filter: blur(5px);
+  background-size: cover;
+  background-position: center;
+  background-image: url("./assets/VALORANT_logo4.jpg");
 }

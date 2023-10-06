@@ -1,15 +1,29 @@
 .card-container {
-  z-index: 1;
-  border: 10px #fd4556 solid;
   width: 150px;
   aspect-ratio: 2/3;
-  /* transition: all .2s; */
+  perspective: 800px;
 }
 
-.card-container:hover {
-  z-index: 2;
-  transform: scale(1.25);
-  box-shadow: 0px 0px 20px 1px;
+.card {
+  height: 100%;
+  width: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: all 0.4s ease-in;
+  outline: 10px #fd4556 solid;
+}
+
+.card-container.flipped .card {
+  transform: rotateY(-180deg);
+}
+
+.back-card,
+.face-card {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  position: absolute;
+  backface-visibility: hidden;
 }
 
 .face-card {
@@ -17,32 +31,42 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  position: relative;
-  height: 100%;
-  width: 100%;
   overflow: hidden;
+}
+
+.back-card {
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transform: rotateY(180deg);
+  overflow: hidden;
+}
+
+.bgImage {
+  scale: 0.1;
+  object-fit: fill;
 }
 
 .agent-bg {
   position: absolute;
   width: 100%;
-  aspect-ratio: 2/3;
   z-index: -3;
   top: 0px;
   object-fit: cover;
-  background-color: rgb(36, 36, 36);
+  background-color: #0f1923;
   scale: 1.3;
 }
 
 .agent-portrait {
   position: absolute;
   width: 200px;
-  aspect-ratio: 2/3;
   z-index: -1;
   top: 0px;
   object-fit: cover;
-  object-position: 50% 50px;
-  scale: 2;
+  object-position: 50% 35px;
+  scale: 2.2;
 }
 
 .gradient-filter {
@@ -51,7 +75,7 @@
   height: 100%;
   width: 100%;
   top: 0px;
-  background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.5));
+  background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.3));
 }
 
 .agent-name {

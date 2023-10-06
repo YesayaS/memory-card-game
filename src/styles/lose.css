@@ -1,0 +1,12 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    font-size: 3rem;
+    color: #fffbf5;
+    background-color: #fd4556;
+  }
+  

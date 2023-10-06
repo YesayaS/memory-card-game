@@ -1,33 +1,4 @@
-import { useEffect } from "react";
-import "../styles/card.css";
-
-const motionMatchMedia = window.matchMedia("(prefers-reduced-motion)");
-const THRESHOLD = 15;
-
-function handleHover(e) {
-  const { clientX, clientY, currentTarget } = e;
-  const { clientWidth, clientHeight, offsetLeft, offsetTop } = currentTarget;
-
-  const horizontal = (clientX - offsetLeft) / clientWidth;
-  const vertical = (clientY - offsetTop) / clientHeight;
-  const rotateX = -(THRESHOLD / 2 - horizontal * THRESHOLD).toFixed(2);
-  const rotateY = -(vertical * THRESHOLD - THRESHOLD / 2).toFixed(2);
-
-  this.style.transform = `perspective(${clientWidth}px) rotateX(${rotateY}deg) rotateY(${rotateX}deg) scale3d(1, 1, 1)`;
-}
-
-function resetStyles(e) {
-  this.style.transform = `perspective(${e.currentTarget.clientWidth}px) rotateX(0deg) rotateY(0deg)`;
-}
-
-export function hoverEffect() {
-  document.querySelectorAll(".card-container").forEach((card) => {
-    if (!motionMatchMedia.matches) {
-      card.addEventListener("mousemove", handleHover);
-      card.addEventListener("mouseleave", resetStyles);
-    }
-  });
-}
+import cardBg from "../assets/VALORANT_Logo_V_thumbnail.jpg";
 
 function FaceCard({ agent }) {
   const agentBg = agent.background;
@@ -43,17 +14,28 @@ function FaceCard({ agent }) {
   );
 }
 
-export function Card({ agent, updateScore }) {
-  useEffect(() => {
-    hoverEffect();
-  }, [agent]);
+function BackCard() {
+  return (
+    <div className="back-card">
+      <img src={cardBg} className="bgImage"></img>
+    </div>
+  );
+}
+
+export function Card({ agent, handle, cardFlip }) {
+  const agentName = agent.displayName;
+
   return (
     <div
-      className="card-container"
-      data-key={agent.displayName}
-      onClick={(e) => updateScore(e)}
+      className={`card-container ${cardFlip ? "flipped" : ""}`}
+      onClick={() => {
+        handle(agentName);
+      }}
     >
-      <FaceCard agent={agent}></FaceCard>
+      <div className="card">
+        <FaceCard agent={agent}></FaceCard>
+        <BackCard></BackCard>
+      </div>
     </div>
   );
 }

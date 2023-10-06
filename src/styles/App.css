@@ -1,16 +1,30 @@
+.gameBoard {
+  padding: 20px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.title {
+  text-align: center;
+  font-size: 3rem;
+  color: #fffbf5;
+}
+
+.scoreBoard {
+  text-align: center;
+  font-size: 2rem;
+  color: #fffbf5;
+}
+
 .card-list-container {
+  margin-top: 20px;
   height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-.card-list {
-  display: grid;
-  justify-content: center;
-  align-items: center;
-  grid-template-columns: repeat(5, 1fr);
-  grid-template-areas: repeat(2, 1fr);
-  column-gap: 10px;
-  row-gap: 10px;
+  gap: 40px
 }
