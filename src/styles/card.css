@@ -6,7 +6,7 @@
   perspective: 800px;
 }
 
-.card-container:hover > .card {
+.card-container.flipped > .card {
   transform: rotateY(-180deg);
 }
 
@@ -16,7 +16,7 @@
   position: relative;
   transform-style: preserve-3d;
   transition: transform 0.3s ease-in;
-  border: 10px #fd4556 solid;
+  outline: 10px #fd4556 solid;
 }
 
 .back-card, .face-card{

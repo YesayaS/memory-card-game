@@ -4,6 +4,7 @@ import "./styles/card.css";
 import { Card } from "./components/card.jsx";
 import uniqid from "uniqid";
 import { motion } from "framer-motion";
+import Tilt from "react-parallax-tilt";
 
 function App() {
   const [agents, setAgents] = useState([]);
@@ -96,12 +97,18 @@ function App() {
           ) : (
             agents.map((agent) => {
               return (
-                <Card
+                <Tilt
                   key={uniqid()}
-                  agent={agent}
-                  handle={updateScore}
-                  cardFlip={cardFlip}
-                ></Card>
+                  tiltReverse={true}
+                  glareEnable={true}
+                  glareReverse={true}
+                >
+                  <Card
+                    agent={agent}
+                    handle={updateScore}
+                    cardFlip={cardFlip}
+                  ></Card>
+                </Tilt>
               );
             })
           )}
