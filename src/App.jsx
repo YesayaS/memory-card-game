@@ -83,8 +83,8 @@ function App() {
   }
 
   return (
-    <>
-      <div>Score: {score}/10</div>
+    <div className="gameBoard">
+      <div className="scoreBoard">Score: {score}/10</div>
       <motion.div
         className="card-list-container"
         initial={{ scale: 0 }}
@@ -114,7 +114,7 @@ function App() {
           )}
         </div>
       </motion.div>
-    </>
+    </div>
   );
 }
 
