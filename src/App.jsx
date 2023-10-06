@@ -98,10 +98,10 @@ function App() {
             <div className="scoreBoard">Score: {score}/10</div>
             <div className="card-list-container">
               <div className="card-list">
-                {agents.map((agent) => {
+                {agents.map((agent, i) => {
                   return (
                     <Tilt
-                      key={uniqid()}
+                      key={i}
                       tiltReverse={true}
                       glareEnable={true}
                       glareReverse={true}
