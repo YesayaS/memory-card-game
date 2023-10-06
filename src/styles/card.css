@@ -4,16 +4,21 @@
   perspective: 800px;
 }
 
+.card-container:hover{
+  cursor: pointer;
+  user-select: none;
+}
+
 .card {
   height: 100%;
   width: 100%;
   position: relative;
   transform-style: preserve-3d;
-  transition: all 1s ease-in;
+  transition: all 0.4s ease-in;
   outline: 10px #fd4556 solid;
 }
 
-.card-container.flipped .card {
+.card-container.flip .card {
   transform: rotateY(-180deg);
 }
 
@@ -24,7 +29,6 @@
   object-fit: cover;
   position: absolute;
   backface-visibility: hidden;
-  transition: all 1s ease-in;
 }
 
 .face-card {
@@ -45,7 +49,7 @@
   overflow: hidden;
 }
 
-.bgImage {
+/* .bgImage {
   scale: 0.1;
   object-fit: fill;
 }
@@ -88,4 +92,4 @@
   color: #000000;
   background-color: #fffbf5;
   width: 100%;
-}
+} */

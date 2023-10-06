@@ -9,11 +9,8 @@ import { Loading } from "./components/loading";
 
 function App() {
   const [agents, setAgents] = useState([]);
-  const [pickHistory, setPickHistory] = useState([]);
-  const [score, setScore] = useState(0);
-
-  const [isClicked, setIsClicked] = useState(false);
   const [cardFlip, setCardFlip] = useState(false);
+  const [clickable, setClickable] = useState(true);
 
   useEffect(() => {
     const handleResponseJson = (obj) => {
@@ -24,8 +21,12 @@ function App() {
           data.fullPortrait !== null,
       );
       const shuffleData = shuffle(filteredData);
-      const reducedData = shuffleData.slice(0, 10);
-      return reducedData;
+      const slicedData = shuffleData.slice(0, 5);
+      const keyData = slicedData.map((data) => {
+        data.uniqueKey = uniqid();
+        return data;
+      });
+      return keyData;
     };
 
     fetch("https://valorant-api.com/v1/agents")
@@ -36,26 +37,10 @@ function App() {
       })
       .catch((e) => console.error(e));
 
-    return () => {};
+    return () => {
+      null;
+    };
   }, []);
-
-  function updateScore(agentName) {
-    const agentIsPicked = isPicked(agentName);
-    if (!agentIsPicked) {
-      setIsClicked(true);
-      if (isClicked) return;
-      setScore(score + 1);
-      setCardFlip(true);
-      setTimeout(() => {
-        shuffleAgents();
-        setPickHistory([...pickHistory, agentName]);
-      }, 800);
-      setTimeout(() => {
-        setCardFlip(false);
-        setIsClicked(false);
-      }, 1300);
-    } else resetAllState();
-  }
 
   function shuffleAgents() {
     const shuffleAgents = agents;
@@ -69,57 +54,35 @@ function App() {
       .map((a) => a.value);
   }
 
-  function isPicked(agentName) {
-    if (pickHistory.includes(agentName)) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  function resetAllState() {
-    setPickHistory([]);
-    setScore(0);
-    shuffleAgents();
+  function handleClick() {
+    if (!clickable) return;
+    setCardFlip(true);
+    setClickable(false);
+    setTimeout(() => {
+      shuffleAgents();
+      setCardFlip(false);
+    }, 600);
+    setTimeout(() => {
+      setClickable(true);
+    }, 1000);
   }
 
   return (
-    <>
-      {!agents.length ? (
-        <Loading></Loading>
-      ) : (
-        <motion.div
-          initial={{ scale: 0 }}
-          animate={{ scale: 1 }}
-          transition={{ duration: 0.2 }}
-        >
-          <div className="gameBoard">
-            <div className="title">VALORANT Memory Card Game</div>
-            <div className="scoreBoard">Score: {score}/10</div>
-            <div className="card-list-container">
-              <div className="card-list">
-                {agents.map((agent) => {
-                  return (
-                    <Tilt
-                      key={uniqid()}
-                      tiltReverse={true}
-                      glareEnable={true}
-                      glareReverse={true}
-                    >
-                      <Card
-                        agent={agent}
-                        handle={updateScore}
-                        cardFlip={cardFlip}
-                      ></Card>
-                    </Tilt>
-                  );
-                })}
-              </div>
-            </div>
-          </div>
-        </motion.div>
-      )}
-    </>
+    <div className="game-display">
+      {!agents.length
+        ? null
+        : agents.map((agent, i) => {
+            const key = agent.uniqueKey;
+            return (
+              <Card
+                key={key}
+                agent={agent}
+                cardFlip={cardFlip}
+                handle={handleClick}
+              ></Card>
+            );
+          })}
+    </div>
   );
 }
 

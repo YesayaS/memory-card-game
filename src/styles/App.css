@@ -1,3 +1,11 @@
+.game-display{
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .gameBoard {
   padding: 20px;
   height: 100%;
