@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import "./styles/App.css";
 import "./styles/card.css";
 import { Card } from "./components/card.jsx";
@@ -6,12 +6,14 @@ import { motion } from "framer-motion";
 import Tilt from "react-parallax-tilt";
 import { Loading } from "./components/loading";
 import { LoseScreen } from "./components/lose";
+import { Transition } from "react-transition-group";
 
 function App() {
   const cardLength = 5;
   const [agents, setAgents] = useState([]);
   const [pickHistory, setPickHistory] = useState([]);
-  const [score, setScore] = useState(-1);
+  const [score, setScore] = useState(0);
+  const [isLose, setIsLose] = useState(false);
 
   const [clickable, setClickable] = useState(true);
   const [cardFlip, setCardFlip] = useState(false);
@@ -64,6 +66,7 @@ function App() {
     setPickHistory([]);
     setScore(0);
     shuffleAgents();
+    setIsLose(false);
   }
 
   function handleClick(agentName) {
@@ -85,19 +88,23 @@ function App() {
   }
 
   function lose() {
-    setScore(-1);
+    setIsLose(true);
   }
 
   function handlePlayAgain() {
     resetAllState();
   }
 
+  const nodeRef = useRef(null);
+
   return (
     <>
       {!agents.length ? (
         <Loading></Loading>
-      ) : score < 0 ? (
-        <LoseScreen handle={handlePlayAgain}></LoseScreen>
+      ) : isLose ? (
+        <Transition nodeRef={nodeRef} in={isLose} timeout={500}>
+          <LoseScreen handle={handlePlayAgain}></LoseScreen>
+        </Transition>
       ) : (
         <motion.div
           initial={{ scale: 0 }}
