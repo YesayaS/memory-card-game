@@ -17,12 +17,13 @@
   outline: 10px #fd4556 solid;
 }
 
-.back-card, .face-card{
+.back-card,
+.face-card {
   height: 100%;
   width: 100%;
   object-fit: cover;
   position: absolute;
-  backface-visibility: hidden;  
+  backface-visibility: hidden;
 }
 
 .face-card {
@@ -33,7 +34,7 @@
   overflow: hidden;
 }
 
-.back-card{
+.back-card {
   z-index: 100;
   display: flex;
   flex-direction: column;
@@ -43,7 +44,7 @@
   overflow: hidden;
 }
 
-.bgImage{
+.bgImage {
   scale: 0.1;
   object-fit: fill;
 }
@@ -76,7 +77,6 @@
   top: 0px;
   background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.3));
 }
-
 
 .agent-name {
   position: absolute;

@@ -5,6 +5,7 @@ import { Card } from "./components/card.jsx";
 import uniqid from "uniqid";
 import { motion } from "framer-motion";
 import Tilt from "react-parallax-tilt";
+import { Loading } from "./components/loading";
 
 function App() {
   const [agents, setAgents] = useState([]);
@@ -83,44 +84,42 @@ function App() {
   }
 
   return (
-    <div>
-      <div>
-        {!agents.length ? (
-          <p>Loading ... </p>
-        ) : (
-          <motion.div
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            transition={{ duration: 0.5 }}
-          >
-            <div className="gameBoard">
-              <div className="title">VALORANT Memory Card Game</div>
-              <div className="scoreBoard">Score: {score}/10</div>
-              <div className="card-list-container">
-                <div className="card-list">
-                  {agents.map((agent) => {
-                    return (
-                      <Tilt
-                        key={uniqid()}
-                        tiltReverse={true}
-                        glareEnable={true}
-                        glareReverse={true}
-                      >
-                        <Card
-                          agent={agent}
-                          handle={updateScore}
-                          cardFlip={cardFlip}
-                        ></Card>
-                      </Tilt>
-                    );
-                  })}
-                </div>
+    <>
+      {!agents.length ? (
+        <Loading></Loading>
+      ) : (
+        <motion.div
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 0.2 }}
+        >
+          <div className="gameBoard">
+            <div className="title">VALORANT Memory Card Game</div>
+            <div className="scoreBoard">Score: {score}/10</div>
+            <div className="card-list-container">
+              <div className="card-list">
+                {agents.map((agent) => {
+                  return (
+                    <Tilt
+                      key={uniqid()}
+                      tiltReverse={true}
+                      glareEnable={true}
+                      glareReverse={true}
+                    >
+                      <Card
+                        agent={agent}
+                        handle={updateScore}
+                        cardFlip={cardFlip}
+                      ></Card>
+                    </Tilt>
+                  );
+                })}
               </div>
             </div>
-          </motion.div>
-        )}
-      </div>
-    </div>
+          </div>
+        </motion.div>
+      )}
+    </>
   );
 }
 

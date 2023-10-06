@@ -1,4 +1,4 @@
-.gameBoard{
+.gameBoard {
   padding: 20px;
   height: 100%;
   display: flex;
@@ -8,13 +8,13 @@
   gap: 10px;
 }
 
-.title{
+.title {
   text-align: center;
   font-size: 3rem;
   color: #fffbf5;
 }
 
-.scoreBoard{
+.scoreBoard {
   text-align: center;
   font-size: 2rem;
   color: #fffbf5;
