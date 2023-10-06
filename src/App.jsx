@@ -2,16 +2,16 @@ import { useState, useEffect } from "react";
 import "./styles/App.css";
 import "./styles/card.css";
 import { Card } from "./components/card.jsx";
-import uniqid from "uniqid";
 import { motion } from "framer-motion";
 import Tilt from "react-parallax-tilt";
 import { Loading } from "./components/loading";
+import { LoseScreen } from "./components/lose";
 
 function App() {
   const cardLength = 5;
   const [agents, setAgents] = useState([]);
   const [pickHistory, setPickHistory] = useState([]);
-  const [score, setScore] = useState(0);
+  const [score, setScore] = useState(-1);
 
   const [clickable, setClickable] = useState(true);
   const [cardFlip, setCardFlip] = useState(false);
@@ -40,24 +40,6 @@ function App() {
     return () => {};
   }, []);
 
-  function updateScore(agentName) {
-    if (!clickable) return;
-    const agentIsPicked = isPicked(agentName);
-    if (!agentIsPicked) {
-      setClickable(false);
-      setScore(score + 1);
-      setCardFlip(true);
-      setTimeout(() => {
-        shuffleAgents();
-        setPickHistory([...pickHistory, agentName]);
-        setCardFlip(false);
-      }, 400);
-      setTimeout(() => {
-        setClickable(true);
-      }, 1000);
-    } else resetAllState();
-  }
-
   function shuffleAgents() {
     const shuffleAgents = agents;
     return setAgents([...shuffle(shuffleAgents)]);
@@ -84,10 +66,38 @@ function App() {
     shuffleAgents();
   }
 
+  function handleClick(agentName) {
+    if (!clickable) return;
+    const agentIsPicked = isPicked(agentName);
+    if (!agentIsPicked) {
+      setClickable(false);
+      setScore(score + 1);
+      setCardFlip(true);
+      setTimeout(() => {
+        shuffleAgents();
+        setPickHistory([...pickHistory, agentName]);
+        setCardFlip(false);
+      }, 400);
+      setTimeout(() => {
+        setClickable(true);
+      }, 1000);
+    } else lose();
+  }
+
+  function lose() {
+    setScore(-1);
+  }
+
+  function handlePlayAgain() {
+    resetAllState();
+  }
+
   return (
     <>
       {!agents.length ? (
         <Loading></Loading>
+      ) : score < 0 ? (
+        <LoseScreen handle={handlePlayAgain}></LoseScreen>
       ) : (
         <motion.div
           initial={{ scale: 0 }}
@@ -110,7 +120,7 @@ function App() {
                   >
                     <Card
                       agent={agent}
-                      handle={updateScore}
+                      handle={handleClick}
                       cardFlip={cardFlip}
                     ></Card>
                   </Tilt>

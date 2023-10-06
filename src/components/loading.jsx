@@ -1,8 +1,8 @@
-import "../styles/loading.css";
+import "../styles/stateScreen.css";
 
 export function Loading() {
   return (
-    <div className="loading-container">
+    <div className="container">
       <div>Loading</div>
       <div>...</div>
     </div>
