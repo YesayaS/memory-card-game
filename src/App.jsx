@@ -1,12 +1,17 @@
 import { useState, useEffect } from "react";
 import "./styles/App.css";
-import { Card } from "./components/card";
+import "./styles/card.css";
+import { Card } from "./components/card.jsx";
 import uniqid from "uniqid";
+import { motion } from "framer-motion";
 
 function App() {
   const [agents, setAgents] = useState([]);
   const [pickHistory, setPickHistory] = useState([]);
   const [score, setScore] = useState(0);
+
+  const [isClicked, setIsClicked] = useState(false);
+  const [cardFlip, setCardFlip] = useState(false);
 
   useEffect(() => {
     const handleResponseJson = (obj) => {
@@ -28,7 +33,27 @@ function App() {
         setAgents([...data]);
       })
       .catch((e) => console.error(e));
+
+    return () => {};
   }, []);
+
+  function updateScore(agentName) {
+    const agentIsPicked = isPicked(agentName);
+    if (!agentIsPicked) {
+      setIsClicked(true);
+      if (isClicked) return;
+      // setScore(score + 1);
+      setCardFlip(true);
+      setTimeout(() => {
+        // shuffleAgents();
+        // setPickHistory([...pickHistory, agentName]);
+      }, 800);
+      setTimeout(() => {
+        setCardFlip(false);
+        setIsClicked(false);
+      }, 1300);
+    } else resetAllState();
+  }
 
   function shuffleAgents() {
     const shuffleAgents = agents;
@@ -42,21 +67,12 @@ function App() {
       .map((a) => a.value);
   }
 
-  function isPicked(e) {
-    const agentName = e.target.closest(".card-container").dataset.key;
+  function isPicked(agentName) {
     if (pickHistory.includes(agentName)) {
       return true;
     } else {
-      setPickHistory([...pickHistory, agentName]);
-      shuffleAgents();
       return false;
     }
-  }
-
-  function updateScore(agentName) {
-    const agentIsPicked = isPicked(agentName);
-    if (!agentIsPicked) setScore(score + 1);
-    else resetAllState();
   }
 
   function resetAllState() {
@@ -68,7 +84,12 @@ function App() {
   return (
     <>
       <div>Score: {score}/10</div>
-      <div className="card-list-container">
+      <motion.div
+        className="card-list-container"
+        initial={{ scale: 0 }}
+        animate={{ scale: 1 }}
+        transition={{ duration: 0.5 }}
+      >
         <div className="card-list">
           {!agents.length ? (
             <p>Loading ... </p>
@@ -76,15 +97,16 @@ function App() {
             agents.map((agent) => {
               return (
                 <Card
-                  agent={agent}
-                  updateScore={updateScore}
                   key={uniqid()}
+                  agent={agent}
+                  handle={updateScore}
+                  cardFlip={cardFlip}
                 ></Card>
               );
             })
           )}
         </div>
-      </div>
+      </motion.div>
     </>
   );
 }
