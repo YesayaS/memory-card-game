@@ -1,6 +1,6 @@
+import { useEffect } from "react";
 import "../styles/card.css";
 
-// const card = document.querySelector(".card-container");
 const motionMatchMedia = window.matchMedia("(prefers-reduced-motion)");
 const THRESHOLD = 15;
 
@@ -20,15 +20,16 @@ function resetStyles(e) {
   this.style.transform = `perspective(${e.currentTarget.clientWidth}px) rotateX(0deg) rotateY(0deg)`;
 }
 
-document.querySelectorAll(".card-container").forEach((card) => {
-  if (!motionMatchMedia.matches) {
-    card.addEventListener("mousemove", handleHover);
-    card.addEventListener("mouseleave", resetStyles);
-  }
-});
+export function hoverEffect() {
+  document.querySelectorAll(".card-container").forEach((card) => {
+    if (!motionMatchMedia.matches) {
+      card.addEventListener("mousemove", handleHover);
+      card.addEventListener("mouseleave", resetStyles);
+    }
+  });
+}
 
 function FaceCard({ agent }) {
-  // console.log(agent);
   const agentBg = agent.background;
   const agentPortrait = agent.fullPortrait;
   const agentName = agent.displayName;
@@ -43,6 +44,9 @@ function FaceCard({ agent }) {
 }
 
 export function Card({ agent, updateScore }) {
+  useEffect(() => {
+    hoverEffect();
+  }, [agent]);
   return (
     <div
       className="card-container"
